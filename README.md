@@ -72,8 +72,10 @@ MONGO_URI=your_mongodb_connection_string
 
 
 FUTURE IMPROVEMENTS
-- Add payment gateway integration (e.g., RazorPay)
+- Add payment gateway integration (e.g., Stripe)
 - User profile page
+- Admin dashboard with analytics
+- Push notifications
 
 
 AUTHOR
