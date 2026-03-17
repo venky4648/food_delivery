@@ -1,4 +1,3 @@
-
 FOOD DELIVERY WEB APP
 
 A full-stack food delivery application built using React.js for the frontend and Node.js/Express for the backend. This app allows users to browse food items, add them to the cart, and place orders. Admin functionality is also included for managing products and orders.
@@ -12,6 +11,11 @@ USER FEATURES
 - Place and view orders
 - Responsive design for mobile and desktop
 
+PAYMENT INTEGRATION
+- Integrated Razorpay payment gateway for secure online transactions
+- Supports real-time payment processing during checkout
+- Backend verification implemented to ensure payment authenticity
+- Ensures smooth and reliable checkout experience for users
 
 
 TECH STACK
@@ -72,7 +76,7 @@ MONGO_URI=your_mongodb_connection_string
 
 
 FUTURE IMPROVEMENTS
-- Add payment gateway integration (e.g., Stripe)
+- Enhance existing Razorpay integration with features like refunds and payment history
 - User profile page
 - Admin dashboard with analytics
 - Push notifications
@@ -81,5 +85,3 @@ FUTURE IMPROVEMENTS
 AUTHOR
 Venkatesh Kota
 GitHub: https://github.com/venky4648
-
-
