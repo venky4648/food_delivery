@@ -47,7 +47,7 @@ const PlaceOrder = () => {
     }
 
     const options = {
-      key: "rzp_test_DWpMSz6ZJshhgi", // Replace with your Razorpay key
+      key: "rzp_test_SSJEtrp51pELV3", // Replace with your Razorpay key
       amount: totalAmount * 100, // Amount in paise
       currency: "INR",
       name: "Acme Corp",

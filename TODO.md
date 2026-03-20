@@ -1,0 +1,1 @@
+# Razorpay Env Fix Plan Steps&#10;1. [ ] Create frontend/.env.example with template key.&#10;2. [ ] Update frontend/src/pages/PlaceOrder/PlaceOrder.jsx with correct import.meta.env.VITE_RAZORPAY_KEY.&#10;3. [ ] User creates .env from example, restarts dev server.&#10;4. [ ] Test payment.
