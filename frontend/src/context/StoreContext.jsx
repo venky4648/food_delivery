@@ -28,6 +28,10 @@ const StoreContextProvider = ({ children }) => {
       return acc + (item ? item.price * quantity : 0);
     }, 0);
   };
+
+  const clearCart = () => {
+    setCartItems({});
+  };
   
 
   
@@ -38,7 +42,8 @@ const StoreContextProvider = ({ children }) => {
     addToCart,
     removeFromCart,
     setCartItems,
-    getTotalCartAmount
+    getTotalCartAmount,
+    clearCart
   };
 
   return (
