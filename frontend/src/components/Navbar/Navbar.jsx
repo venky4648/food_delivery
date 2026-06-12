@@ -6,11 +6,18 @@ import PropTypes from "prop-types"
 import { StoreContext } from "../../context/StoreContext";
 const Navbar = ({setShowLogin}) => {
   const [menu, setMenu] = useState("home");
-  const {getTotalCartAmount}=useContext(StoreContext)
+  const { getTotalCartAmount, user, setUser, setToken } = useContext(StoreContext)
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("user");
+    sessionStorage.removeItem("token");
+    setUser(null);
+    setToken("");
+  };
 
   return (
     <div className="navbar">
-      <Link to ="/"><img src={assets.logo} alt="header image" /></Link>
+      <Link to ="/"><img src={assets.logo} alt="header image" className="logo" /></Link>
       <ul className="navbar-menu">
         <li>
           <Link
@@ -55,7 +62,21 @@ const Navbar = ({setShowLogin}) => {
           <Link to="/cart"><img src={assets.basket_icon} alt="" /></Link>
           <div className={getTotalCartAmount()===0?"":"dot"}></div>
         </div>
-        <button onClick={()=>{setShowLogin(true)}}>Sign In</button>
+        {!user ? (
+          <button onClick={()=>{setShowLogin(true)}}>Sign In</button>
+        ) : (
+          <div className="navbar-profile">
+            <img src={assets.profile_icon} alt="profile" />
+            <ul className="nav-profile-dropdown">
+              <li className="user-info">{user.name} ({user.role})</li>
+              <hr />
+              <li onClick={handleLogout}>
+                <img src={assets.logout_icon} alt="logout" />
+                <p>Logout</p>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );

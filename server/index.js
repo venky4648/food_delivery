@@ -5,6 +5,7 @@ import cors from 'cors';
 import signInRoute from './routes/userRoute.js';
 import paymentRoutes from './routes/paymentRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
+import foodRouter from './routes/foodRoute.js';
 import { connectDB } from './config/db.js';
 
 const app = express();
@@ -16,6 +17,8 @@ app.use(cors());
 app.use('/api', signInRoute);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/food', foodRouter);
+app.use('/images', express.static('uploads'));
 
 app.listen(port, () => {
     console.log(`server is running ${port}`);

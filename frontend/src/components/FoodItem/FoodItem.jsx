@@ -3,14 +3,46 @@ import { assets } from "../../assets/assets";
 import "./FoodItem.css";
 import PropTypes from "prop-types";
 import { StoreContext } from "../../context/StoreContext";
+import axios from "axios";
 
 const FoodItem = ({ id, name, price, description, image }) => {
-  const { cartItems, addToCart, removeFromCart } = useContext(StoreContext);
+  const { cartItems, addToCart, removeFromCart, url, fetchFoodList, user, token } = useContext(StoreContext);
+
+  const handleDelete = async (e) => {
+    e.stopPropagation();
+    if (window.confirm(`Are you sure you want to delete "${name}"?`)) {
+      try {
+        const response = await axios.post(`${url}/api/food/remove`, { id }, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        if (response.data.success) {
+          alert("Item deleted successfully!");
+          fetchFoodList();
+        } else {
+          alert("Failed to delete item: " + response.data.message);
+        }
+      } catch (error) {
+        console.error("Delete error:", error);
+        alert("Error deleting item: " + error.message);
+      }
+    }
+  };
+
+  // Resolve image source dynamically: database image filenames don't contain slashes or data prefix
+  const isServerImage = typeof image === "string" && !image.includes("/") && !image.startsWith("data:");
+  const resolvedImageSrc = isServerImage ? `${url}/images/${image}` : image;
 
   return (
     <div className="food-item">
       <div className="food-item-img-container">
-        <img className="food-item-image" src={image} alt="" />
+        <img className="food-item-image" src={resolvedImageSrc} alt={name} />
+        {user?.role === "admin" && String(id).length > 2 && (
+          <button className="delete-btn" onClick={handleDelete} title="Delete Food Item">
+            🗑️
+          </button>
+        )}
         {!cartItems[id] ? (
           <img
             className="add"
@@ -37,7 +69,7 @@ const FoodItem = ({ id, name, price, description, image }) => {
       <div className="food-item-info">
         <div className="food-item-name-rating">
           <p>{name}</p>
-          <img src={assets.rating_starts} />
+          <img src={assets.rating_starts} alt="rating stars" />
         </div>
         <p className="food-item-desc">{description}</p>
         <p className="food-item-price">${price}</p>
@@ -47,7 +79,7 @@ const FoodItem = ({ id, name, price, description, image }) => {
 };
 
 FoodItem.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   description: PropTypes.string.isRequired,

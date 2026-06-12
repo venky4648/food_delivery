@@ -1,0 +1,147 @@
+.add-item-popup {
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(5px);
+  display: grid;
+  top: 0;
+  left: 0;
+}
+
+.add-item-popup-container {
+  place-self: center;
+  width: max(28vw, 400px);
+  color: #555;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 25px 30px;
+  border-radius: 12px;
+  font-size: 14px;
+  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.4s;
+}
+
+.add-item-popup-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: black;
+}
+
+.add-item-popup-title h2 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.add-item-popup-title img {
+  width: 16px;
+  cursor: pointer;
+}
+
+.add-item-popup-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.flex-col p {
+  font-weight: 500;
+  color: #444;
+}
+
+.flex-col input,
+.flex-col textarea,
+.flex-col select {
+  outline: none;
+  border: 1px solid #c9c9c9;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #fafafa;
+}
+
+.flex-col input:focus,
+.flex-col textarea:focus,
+.flex-col select:focus {
+  border-color: tomato;
+  background-color: white;
+}
+
+.add-category-price {
+  display: flex;
+  gap: 20px;
+}
+
+.add-category-price > div {
+  flex: 1;
+}
+
+.add-img-upload label {
+  cursor: pointer;
+  display: block;
+}
+
+.upload-area {
+  border: 2px dashed #c9c9c9;
+  border-radius: 8px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #fafafa;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.upload-area:hover {
+  border-color: tomato;
+  background-color: #fffafa;
+}
+
+.preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #888;
+}
+
+.upload-icon {
+  font-size: 28px;
+}
+
+.add-btn {
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  color: white;
+  background-color: tomato;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.add-btn:hover {
+  background-color: #e5634b;
+}
+
+.add-btn:active {
+  transform: scale(0.98);
+}

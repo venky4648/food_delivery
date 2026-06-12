@@ -1,21 +1,19 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { assets } from "../../assets/assets";
 import "./LoginPopUp.css";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { StoreContext } from "../../context/StoreContext";
 
-const LoginPopUp = ({ setShowLogin,setShowSignIn }) => {
+const LoginPopUp = ({ setShowLogin, setShowSignIn }) => {
   const navigate = useNavigate();
+  const { setUser, setToken, url } = useContext(StoreContext);
   const [values, setValues] = useState({
     email: "",
     password: ""
   });
-
-  const handleFunction = () => {
-    setShowLogin(false);
-  };
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -24,16 +22,20 @@ const LoginPopUp = ({ setShowLogin,setShowSignIn }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/api/logIn", values);
+      const response = await axios.post(`${url}/api/login`, values);
       const data = response.data;
       if (data.status) {
         alert("Login successful!");
+        sessionStorage.setItem("user", JSON.stringify(data.user));
+        sessionStorage.setItem("token", data.token);
+        setUser(data.user);
+        setToken(data.token);
         setShowLogin(false);
       } else {
         alert(data.message);
       }
     } catch (err) {
-      alert("Login failed");
+      alert("Login failed: " + (err.response?.data?.message || err.message));
       console.log(err);
     }
   };
@@ -43,7 +45,6 @@ const LoginPopUp = ({ setShowLogin,setShowSignIn }) => {
       <form className="login-popup-cointainer" onSubmit={handleSubmit}>
         <div className="login-popup-title">
           <h2>LogIn</h2>
-          <img onClick={handleFunction} src={assets.cross_icon} alt="X" />
         </div>
         <div className="login-popup-inputs">
           <input

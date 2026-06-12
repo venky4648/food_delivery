@@ -4,13 +4,18 @@ import "./FoodDisplay.css"
 import PropTypes from 'prop-types';
 import { StoreContext } from "../../context/StoreContext"
 import FoodItem from "../FoodItem/FoodItem"
-const FoodDisplay = ({category}) => {
-    const {food_list} = useContext(StoreContext)
+const FoodDisplay = ({ category, setShowAddItem }) => {
+    const { food_list, user } = useContext(StoreContext)
   return (
     <div className="food-display" id="food-display">
-        <h2>
-            Top dishes near you
-        </h2>
+        <div className="food-display-header">
+            <h2>Top dishes near you</h2>
+            {user?.role === "admin" && (
+                <button className="add-item-trigger-btn" onClick={() => setShowAddItem(true)}>
+                    <span>+</span> Add Food Item
+                </button>
+            )}
+        </div>
         <div className="food-display-list">
             {
                 food_list.map((item,index)=>{
@@ -29,8 +34,8 @@ const FoodDisplay = ({category}) => {
 
 
 FoodDisplay.propTypes = {
-        
-        category: PropTypes.string.isRequired
+        category: PropTypes.string.isRequired,
+        setShowAddItem: PropTypes.func.isRequired
 }
 
 export default FoodDisplay
