@@ -12,7 +12,7 @@ import { StoreContext } from "./context/StoreContext.jsx";
 
 const App = () => {
   const { user } = useContext(StoreContext);
-  const [showLogin, setShowLogin] = useState(true);
+  const [showLogin, setShowLogin] = useState(false);
   const [showSignIn, setShowSignIn] = useState(false);
   const [showAddItem, setShowAddItem] = useState(false);
 

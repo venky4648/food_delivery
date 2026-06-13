@@ -10,7 +10,7 @@ const StoreContextProvider = ({ children }) => {
   const [food_list, setFoodList] = useState([]);
   const [user, setUser] = useState(null);
   const [token, setToken] = useState("");
-  const url = "http://localhost:3000";
+  const url = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
   const fetchFoodList = async () => {
     try {
@@ -26,6 +26,7 @@ const StoreContextProvider = ({ children }) => {
     }
   };
 
+  // On first load: restore session and fetch food
   useEffect(() => {
     const storedUser = sessionStorage.getItem("user");
     const storedToken = sessionStorage.getItem("token");
@@ -39,6 +40,13 @@ const StoreContextProvider = ({ children }) => {
     }
     fetchFoodList();
   }, []);
+
+  // Re-fetch food list whenever the user logs in (user changes from null to a value)
+  useEffect(() => {
+    if (user) {
+      fetchFoodList();
+    }
+  }, [user]);
 
   const addToCart = (itemId) => {
     if (!cartItems[itemId]) {
